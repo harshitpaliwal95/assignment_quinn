@@ -1,14 +1,15 @@
 import "./App.css";
+import { DragButton } from "./components/dragButton";
+import { DropOver } from "./components/dropOver";
 
 function App() {
   return (
     <div className="App">
       <div className="grid-two">
-        <div className="copy-comp flex-comp">
-          <h3>Text</h3>
-          <button className="btn btn-outline">Button</button>
+        <div className="copy-comp">
+          <DragButton text={"Button"} />
         </div>
-        <div className="canvas"></div>
+        <DropOver />
       </div>
     </div>
   );
