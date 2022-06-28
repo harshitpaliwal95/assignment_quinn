@@ -1,43 +1,20 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { canvasState } from "../slice/globalSlice";
-import { CanvasDnd } from "./canvasDnd";
+import { updateComp } from "../slice/globalSlice";
+import { CanvasDndButton } from "./canvasDndButton";
+import { CanvasDndInput } from "./canvasDndInput";
 
 export const DropOver = () => {
-  const [button, setButton] = useState([
-    { id: 0, top: 20, left: 80, title: "Drag me around" },
-    { id: 1, top: 180, left: 20, title: "Drag me too" },
-  ]);
+  const { singleItem } = useSelector((state) => state.global);
+  const dispatch = useDispatch();
 
   const moveBox = useCallback(
-    (id, left = 2, top = 0) => {
-      const findItem = button.find((item) => item.id === id);
-      if (findItem) {
-        setButton((button) =>
-          button.map((item) => {
-            const newObj = Object.assign({}, item);
-            if (newObj.id === id) {
-              newObj["top"] = top;
-              newObj["left"] = left;
-            }
-            return newObj;
-          })
-        );
-      } else {
-        setButton((button) => [
-          ...button,
-          {
-            id: button.length + 1,
-            top: top,
-            left: left,
-            title: "Double-Click",
-          },
-        ]);
-      }
+    (id, left = 2, top = 0, type) => {
+      dispatch(updateComp({ id, top, left, type }));
     },
-    [button, setButton]
+    [dispatch]
   );
   const [, drop] = useDrop(
     () => ({
@@ -46,45 +23,46 @@ export const DropOver = () => {
         const delta = monitor.getDifferenceFromInitialOffset();
         const left = Math.round(item.left + delta.x);
         const top = Math.round(item.top + delta.y);
-        moveBox(item.id, left, top);
+        moveBox(item.id, left, top, item.type);
         return undefined;
       },
     }),
     [moveBox]
   );
-  const canvasColorArr = ["purple", "red", "bluesh", "white", "black"];
-  const [canvasColor, setCanvasColor] = useState(null);
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
+
   const saveStateHandler = () => {
-    dispatch(canvasState(button));
-    navigate(`/item/11`);
+    setTimeout(() => {
+      navigate(`/item/11`);
+    }, 500);
   };
 
   return (
-    <div ref={drop} className={`canvas color-${canvasColor}`}>
-      {button.map((item) => (
-        <CanvasDnd
-          key={item.id}
-          id={item.id}
-          left={item.left}
-          top={item.top}
-          text={item.title}
-        />
-      ))}
-      <div className="color-box">
-        {canvasColorArr.map((item) => (
-          <span
-            className={`color color-${item}`}
-            onClick={() => setCanvasColor(item)}
-          ></span>
-        ))}
-      </div>
+    <div ref={drop} className={`canvas`}>
+      {singleItem.map((item) =>
+        item.type === "button" ? (
+          <CanvasDndButton
+            key={item.id}
+            id={item.id}
+            left={item.left}
+            top={item.top}
+            text={item.title}
+            type={item.type}
+          />
+        ) : (
+          <CanvasDndInput
+            key={item.id}
+            id={item.id}
+            left={item.left}
+            top={item.top}
+            text={item.title}
+            type={item.type}
+          />
+        )
+      )}
       <div className="top-btn">
-        <button
-          className="btn btn-outline"
-          onDoubleClick={() => saveStateHandler()}
-        >
+        <button className="btn btn-outline" onClick={() => saveStateHandler()}>
           Save State
         </button>
       </div>

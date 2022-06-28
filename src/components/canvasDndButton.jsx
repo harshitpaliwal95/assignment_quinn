@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setSingleItem } from "../slice/globalSlice";
+import { editText } from "../slice/globalSlice";
 
 const style = {
   position: "absolute",
@@ -12,7 +11,7 @@ const style = {
   padding: "0.5rem 1rem",
   cursor: "move",
 };
-export const CanvasDnd = ({ id, left, top, text }) => {
+export const CanvasDndButton = ({ id, left, top, text }) => {
   const [, drag] = useDrag(
     () => ({
       type: "button",
@@ -25,6 +24,14 @@ export const CanvasDnd = ({ id, left, top, text }) => {
   );
   const [inputEdit, setInputEdit] = useState(false);
   const [buttonText, setButtonText] = useState(text);
+  const dispatch = useDispatch();
+
+  const editTextHandler = (e) => {
+    if (e.key === "Enter") {
+      dispatch(editText({ id: id, text: buttonText }));
+      setInputEdit(false);
+    }
+  };
 
   return (
     <button
@@ -42,7 +49,7 @@ export const CanvasDnd = ({ id, left, top, text }) => {
           placeholder="edit text"
           value={buttonText}
           onChange={(e) => setButtonText(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && setInputEdit(false)}
+          onKeyDown={(e) => editTextHandler(e)}
         ></input>
       )}
     </button>

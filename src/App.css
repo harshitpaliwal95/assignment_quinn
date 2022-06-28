@@ -98,11 +98,21 @@
   height: 100vh;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
+
 .saved-state-canvas {
   margin: auto;
-  width: 60%;
+  width: 100%;
   height: 80%;
   border: 2px solid gray;
   position: relative;
+}
+.text-field {
+  padding: 0.7rem;
+}
+label {
+  padding: 5px;
+  color: white;
+  /* background-color: ; */
 }
