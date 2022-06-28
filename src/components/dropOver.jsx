@@ -11,11 +11,12 @@ export const DropOver = () => {
   const dispatch = useDispatch();
 
   const moveBox = useCallback(
-    (id, type, left = 2, top = 0) => {
+    (id, left = 2, top = 0, type) => {
       dispatch(updateComp({ id, top, left, type }));
     },
     [dispatch]
   );
+
   const [, drop] = useDrop(
     () => ({
       accept: "button",
@@ -49,6 +50,8 @@ export const DropOver = () => {
             top={item.top}
             text={item.title}
             type={item.type}
+            heigthSize={item.height}
+            widthSize={item.width}
           />
         ) : (
           <CanvasDndInput
@@ -58,6 +61,8 @@ export const DropOver = () => {
             top={item.top}
             text={item.title}
             type={item.type}
+            heigthSize={item.height}
+            widthSize={item.width}
           />
         )
       )}

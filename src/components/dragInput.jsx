@@ -11,7 +11,7 @@ export const DragInput = ({ text, left, top }) => {
 
   return (
     <>
-      <label for="text-field" ref={drag}>
+      <div className="pointer-input" ref={drag}>
         :::
         <input
           style={{ left, top, background: "white", color: "black" }}
@@ -19,7 +19,7 @@ export const DragInput = ({ text, left, top }) => {
           placeholder={text}
         ></input>
         :::
-      </label>
+      </div>
     </>
   );
 };

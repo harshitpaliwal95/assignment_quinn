@@ -25,6 +25,8 @@ export const SavedCanvas = () => {
               top={item.top}
               text={item.title}
               type={item.type}
+              heigthSize={item.height}
+              widthSize={item.width}
             />
           ) : (
             <CanvasDndInput
@@ -34,6 +36,8 @@ export const SavedCanvas = () => {
               top={item.top}
               text={item.title}
               type={item.type}
+              heigthSize={item.height}
+              widthSize={item.width}
             />
           )
         )}

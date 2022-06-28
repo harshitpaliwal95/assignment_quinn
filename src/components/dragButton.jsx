@@ -3,7 +3,7 @@ import { useDrag } from "react-dnd";
 export const DragButton = ({ text, left, top }) => {
   const [, drag] = useDrag(() => ({
     type: "button",
-    item: { text: text, id: 444, left: 0, top: 50, type: "button" },
+    item: { text: text, id: 444, left: -10, top: 50, type: "button" },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),

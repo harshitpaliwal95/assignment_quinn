@@ -1,16 +1,25 @@
 import { useState } from "react";
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
-import { editText } from "../slice/globalSlice";
+import { editText, reSizeComp } from "../slice/globalSlice";
 
 const style = {
   position: "absolute",
-  minHeight: "1rem",
+  height: "1.7rem",
+  width: "13rem",
   color: "white",
   padding: "0.5rem 1rem",
   cursor: "move",
+  transition: ".6s",
 };
-export const CanvasDndInput = ({ id, left, top, text }) => {
+export const CanvasDndInput = ({
+  id,
+  left,
+  top,
+  text,
+  heigthSize,
+  widthSize,
+}) => {
   const [, drag] = useDrag(
     () => ({
       type: "button",
@@ -21,6 +30,7 @@ export const CanvasDndInput = ({ id, left, top, text }) => {
     }),
     [id, left, top]
   );
+  console.log(heigthSize);
 
   const [buttonText, setButtonText] = useState(text);
   const dispatch = useDispatch();
@@ -31,17 +41,54 @@ export const CanvasDndInput = ({ id, left, top, text }) => {
     }
   };
 
+  const [height, setHeight] = useState(heigthSize);
+  const [width, setWidth] = useState(widthSize);
+  const getNumber = (item) => {
+    let number = item.replace("rem", "");
+    return Number(number);
+  };
+
+  const incSize = () => {
+    let numberHeight = getNumber(height);
+    let numberWidth = getNumber(width);
+    setHeight(() => `${numberHeight + 0.3}rem`);
+    setWidth(() => `${numberWidth + 0.8}rem`);
+    setTimeout(() => {
+      dispatch(reSizeComp({ id, height, width }));
+    }, 1000);
+  };
+  const decSize = () => {
+    let numberHeight = getNumber(height);
+    let numberWidth = getNumber(width);
+    setHeight(() => `${numberHeight - 0.3}rem`);
+    setWidth(() => `${numberWidth - 0.8}rem`);
+    setTimeout(() => {
+      dispatch(reSizeComp({ id, height, width }));
+    }, 1000);
+  };
+
   return (
-    <label for="text-field" ref={drag} style={{ ...style, left, top }}>
-      :::
+    <div
+      className="pointer-input"
+      ref={drag}
+      style={{ ...style, left, top, height, width }}
+    >
       <input
-        className="text-field"
+        className="text-field text-dnd"
+        id="text"
         placeholder={text}
         value={buttonText}
         onKeyDown={editTextHandler}
         onChange={(e) => setButtonText(e.target.value)}
       ></input>
-      :::
-    </label>
+      <i
+        className="bi bi-arrow-down-right btn-size btn-icon-dec"
+        onClick={decSize}
+      ></i>
+      <i
+        className="bi bi-arrow-down-left btn-size btn-icon-inc"
+        onClick={incSize}
+      ></i>
+    </div>
   );
 };
