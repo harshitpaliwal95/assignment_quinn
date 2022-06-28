@@ -1,16 +1,14 @@
 import "./App.css";
-import { DragButton } from "./components/dragButton";
-import { DropOver } from "./components/dropOver";
-
+import { Routes, Route } from "react-router-dom";
+import { HomePage } from "./pages/homePage";
+import { SingleItemPage } from "./pages/singleItemPage";
 function App() {
   return (
     <div className="App">
-      <div className="grid-two">
-        <div className="copy-comp">
-          <DragButton text={"Button"} />
-        </div>
-        <DropOver />
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/item/:id" element={<SingleItemPage />} />
+      </Routes>
     </div>
   );
 }

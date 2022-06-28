@@ -8,7 +8,7 @@ export const DropOver = () => {
     { id: 0, top: 20, left: 80, title: "Drag me around" },
     { id: 1, top: 180, left: 20, title: "Drag me too" },
   ]);
-  const basicArr = boxes;
+
   const moveBox = useCallback(
     (id, left = 2, top = 0) => {
       const findItem = boxes.find((item) => item.id === id);
@@ -26,7 +26,7 @@ export const DropOver = () => {
       } else {
         setBoxes((boxes) => [
           ...boxes,
-          { id: boxes.length + 1, top: top, left: left, title: "Drag me too" },
+          { id: boxes.length + 1, top: top, left: left, title: "Double-Click" },
         ]);
       }
     },
@@ -45,16 +45,16 @@ export const DropOver = () => {
     }),
     [moveBox]
   );
-  console.log(boxes);
+
   return (
-    <div ref={drop} className="canvas">
+    <div ref={drop} className={`canvas`}>
       {boxes.map((item) => (
         <CanvasDnd
           key={item.id}
           id={item.id}
           left={item.left}
           top={item.top}
-          text={item.text}
+          text={item.title}
         />
       ))}
     </div>
