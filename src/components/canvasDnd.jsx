@@ -25,21 +25,11 @@ export const CanvasDnd = ({ id, left, top, text }) => {
   );
   const [inputEdit, setInputEdit] = useState(false);
   const [buttonText, setButtonText] = useState(text);
-  const inputHandler = () => {
-    setInputEdit(true);
-  };
-  const dispatch = useDispatch();
 
-  const navigate = useNavigate();
-  const navigateHandler = () => {
-    dispatch(setSingleItem(buttonText));
-    navigate(`/item/${id}`);
-  };
   return (
     <button
       className="box btn dnd-btn"
-      onClick={() => inputHandler()}
-      onDoubleClick={() => navigateHandler()}
+      onDoubleClick={() => setInputEdit(true)}
       ref={drag}
       style={{ ...style, left, top }}
       data-testid="box"

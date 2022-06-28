@@ -1,5 +1,8 @@
 import { useCallback, useState } from "react";
 import { useDrop } from "react-dnd";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { canvasState } from "../slice/globalSlice";
 import { CanvasDnd } from "./canvasDnd";
 
 export const DropOver = () => {
@@ -51,6 +54,12 @@ export const DropOver = () => {
   );
   const canvasColorArr = ["purple", "red", "bluesh", "white", "black"];
   const [canvasColor, setCanvasColor] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const saveStateHandler = () => {
+    dispatch(canvasState(button));
+    navigate(`/item/11`);
+  };
 
   return (
     <div ref={drop} className={`canvas color-${canvasColor}`}>
@@ -70,6 +79,14 @@ export const DropOver = () => {
             onClick={() => setCanvasColor(item)}
           ></span>
         ))}
+      </div>
+      <div className="top-btn">
+        <button
+          className="btn btn-outline"
+          onDoubleClick={() => saveStateHandler()}
+        >
+          Save State
+        </button>
       </div>
     </div>
   );

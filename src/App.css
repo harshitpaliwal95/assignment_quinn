@@ -89,3 +89,20 @@
 .color-black {
   background: black;
 }
+.top-btn {
+  position: absolute;
+  bottom: -4rem;
+  left: 40%;
+}
+.saved-state {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.saved-state-canvas {
+  margin: auto;
+  width: 60%;
+  height: 80%;
+  border: 2px solid gray;
+  position: relative;
+}

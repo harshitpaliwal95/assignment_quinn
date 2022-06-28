@@ -1,20 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  signleItem: null,
+  singleItem: [],
 };
 
 export const globalSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    setSingleItem: (state, { payload }) => {
-      state.signleItem = payload;
+    canvasState: (state, { payload }) => {
+      state.singleItem = payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setSingleItem } = globalSlice.actions;
+export const { canvasState } = globalSlice.actions;
 
 export default globalSlice.reducer;
