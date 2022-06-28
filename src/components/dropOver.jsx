@@ -26,7 +26,7 @@ export const DropOver = () => {
       } else {
         setBoxes((boxes) => [
           ...boxes,
-          { id: id, top: top, left: left, title: "Drag me too" },
+          { id: boxes.length + 1, top: top, left: left, title: "Drag me too" },
         ]);
       }
     },
