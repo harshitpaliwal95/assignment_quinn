@@ -13,7 +13,7 @@ const style = {
   cursor: "move",
 };
 export const CanvasDnd = ({ id, left, top, text }) => {
-  const [{ isDragging }, drag] = useDrag(
+  const [, drag] = useDrag(
     () => ({
       type: "button",
       item: { id, left, top },
