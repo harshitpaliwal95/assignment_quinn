@@ -50,6 +50,7 @@ export const CanvasDnd = ({ id, left, top, text }) => {
           type="text"
           className="edit-text"
           placeholder="edit text"
+          value={buttonText}
           onChange={(e) => setButtonText(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && setInputEdit(false)}
         ></input>

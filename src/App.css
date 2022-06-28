@@ -37,6 +37,10 @@
   width: 100%;
   margin: auto;
   position: relative;
+  transition: 0.4s;
+}
+.canvas:hover {
+  box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
 }
 .canvas-active {
   background-color: var(--light-gray);
@@ -57,4 +61,31 @@
   align-items: center;
   justify-content: center;
   font-size: 8rem;
+}
+.color-box {
+  position: absolute;
+  top: -30px;
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.color {
+  padding: 0.8rem 1rem;
+  border-radius: 50%;
+}
+.color-purple {
+  background: linear-gradient(to right, #ef32d9, #89fffd);
+}
+.color-red {
+  background: linear-gradient(to right, #f2709c, #ff9472);
+}
+.color-bluesh {
+  background: linear-gradient(to right, #4ecdc4, #556270);
+}
+.color-white {
+  background: white;
+}
+.color-black {
+  background: black;
 }

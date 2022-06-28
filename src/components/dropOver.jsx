@@ -1,20 +1,19 @@
 import { useCallback, useState } from "react";
 import { useDrop } from "react-dnd";
 import { CanvasDnd } from "./canvasDnd";
-import { DragButton } from "./dragButton";
 
 export const DropOver = () => {
-  const [boxes, setBoxes] = useState([
+  const [button, setButton] = useState([
     { id: 0, top: 20, left: 80, title: "Drag me around" },
     { id: 1, top: 180, left: 20, title: "Drag me too" },
   ]);
 
   const moveBox = useCallback(
     (id, left = 2, top = 0) => {
-      const findItem = boxes.find((item) => item.id === id);
+      const findItem = button.find((item) => item.id === id);
       if (findItem) {
-        setBoxes((boxes) =>
-          boxes.map((item) => {
+        setButton((button) =>
+          button.map((item) => {
             const newObj = Object.assign({}, item);
             if (newObj.id === id) {
               newObj["top"] = top;
@@ -24,13 +23,18 @@ export const DropOver = () => {
           })
         );
       } else {
-        setBoxes((boxes) => [
-          ...boxes,
-          { id: boxes.length + 1, top: top, left: left, title: "Double-Click" },
+        setButton((button) => [
+          ...button,
+          {
+            id: button.length + 1,
+            top: top,
+            left: left,
+            title: "Double-Click",
+          },
         ]);
       }
     },
-    [boxes, setBoxes]
+    [button, setButton]
   );
   const [, drop] = useDrop(
     () => ({
@@ -45,10 +49,12 @@ export const DropOver = () => {
     }),
     [moveBox]
   );
+  const canvasColorArr = ["purple", "red", "bluesh", "white", "black"];
+  const [canvasColor, setCanvasColor] = useState(null);
 
   return (
-    <div ref={drop} className={`canvas`}>
-      {boxes.map((item) => (
+    <div ref={drop} className={`canvas color-${canvasColor}`}>
+      {button.map((item) => (
         <CanvasDnd
           key={item.id}
           id={item.id}
@@ -57,6 +63,14 @@ export const DropOver = () => {
           text={item.title}
         />
       ))}
+      <div className="color-box">
+        {canvasColorArr.map((item) => (
+          <span
+            className={`color color-${item}`}
+            onClick={() => setCanvasColor(item)}
+          ></span>
+        ))}
+      </div>
     </div>
   );
 };
