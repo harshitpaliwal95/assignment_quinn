@@ -11,7 +11,7 @@ export const DropOver = () => {
   const dispatch = useDispatch();
 
   const moveBox = useCallback(
-    (id, left = 2, top = 0, type) => {
+    (id, type, left = 2, top = 0) => {
       dispatch(updateComp({ id, top, left, type }));
     },
     [dispatch]
