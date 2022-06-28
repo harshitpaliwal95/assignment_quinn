@@ -3,6 +3,7 @@
   height: 70%;
   width: 100%;
   margin: auto;
+  position: relative;
 }
 .App {
   background: #0f2027; /* fallback for old browsers */
