@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { editText, reSizeComp } from "../slice/globalSlice";
+import { ChangeColor } from "./changeColor";
 
 const style = {
   position: "absolute",
   height: "1.7rem",
   width: "13rem",
-  color: "white",
   padding: "0.5rem 1rem",
   cursor: "move",
   transition: ".6s",
@@ -19,6 +19,7 @@ export const CanvasDndInput = ({
   text,
   heigthSize,
   widthSize,
+  colorClass,
 }) => {
   const [, drag] = useDrag(
     () => ({
@@ -69,12 +70,12 @@ export const CanvasDndInput = ({
 
   return (
     <div
-      className="pointer-input"
+      className={`pointer-input`}
       ref={drag}
       style={{ ...style, left, top, height, width }}
     >
       <input
-        className="text-field text-dnd"
+        className={`text-field text-dnd ${colorClass}`}
         id="text"
         placeholder={text}
         value={buttonText}
@@ -89,6 +90,7 @@ export const CanvasDndInput = ({
         className="bi bi-arrow-down-left btn-size btn-icon-inc"
         onClick={incSize}
       ></i>
+      <ChangeColor id={id} />
     </div>
   );
 };

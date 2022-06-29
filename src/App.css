@@ -48,6 +48,13 @@
 .dnd-btn {
   position: relative;
 }
+.dnd-btn i {
+  visibility: hidden;
+}
+.dnd-btn:hover i {
+  visibility: visible;
+}
+
 .edit-text {
   top: 41px;
   left: 0;
@@ -62,32 +69,36 @@
   justify-content: center;
   font-size: 8rem;
 }
-.color-box {
-  position: absolute;
-  top: -30px;
-  width: 30%;
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
+
+.color-pane {
+  position: relative;
+  z-index: 1111;
 }
 .color {
-  padding: 0.8rem 1rem;
+  padding: 0.1rem 0.5rem;
+  margin: 2px;
   border-radius: 50%;
+  cursor: pointer;
 }
 .color-purple {
-  background: linear-gradient(to right, #ef32d9, #89fffd);
+  background: #ef32d9;
+  color: black;
 }
 .color-red {
-  background: linear-gradient(to right, #f2709c, #ff9472);
+  background: #f2709c;
+  color: black;
 }
 .color-bluesh {
-  background: linear-gradient(to right, #4ecdc4, #556270);
+  background: #4ecdc4;
+  color: black;
 }
 .color-white {
   background: white;
+  color: black;
 }
 .color-black {
   background: black;
+  color: white;
 }
 .top-btn {
   position: absolute;
@@ -110,7 +121,7 @@
 }
 .text-field {
   padding: 0.7rem;
-  background-color: white;
+
   border: none;
   font-size: 1.2rem;
 }
@@ -134,6 +145,12 @@
   width: 100%;
   height: 100%;
 }
+.pointer-input i {
+  visibility: hidden;
+}
+.pointer-input:hover i {
+  visibility: visible;
+}
 .pointer-input .btn-icon-dec {
   top: -1rem;
   left: 0;
@@ -151,4 +168,10 @@
 }
 .saved-state-canvas i {
   visibility: hidden;
+}
+.pointer-input .color-pane {
+  visibility: hidden;
+}
+.pointer-input:hover .color-pane {
+  visibility: visible;
 }

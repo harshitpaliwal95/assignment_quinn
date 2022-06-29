@@ -10,6 +10,7 @@ const initialState = {
       type: "button",
       width: "13rem",
       height: "3rem",
+      colorClass: "basic",
     },
     {
       id: 1,
@@ -19,6 +20,7 @@ const initialState = {
       type: "text-field",
       height: "2rem",
       width: "13rem",
+      colorClass: "basic",
     },
   ],
 };
@@ -66,11 +68,17 @@ export const globalSlice = createSlice({
       state.singleItem[index].height = payload.height;
       state.singleItem[index].width = payload.width;
     },
+    changeColor: (state, { payload }) => {
+      const index = state.singleItem.findIndex(
+        (item) => item.id === payload.id
+      );
+      state.singleItem[index].colorClass = payload.colorClass;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { canvasState, editText, updateComp, reSizeComp } =
+export const { canvasState, editText, updateComp, reSizeComp, changeColor } =
   globalSlice.actions;
 
 export default globalSlice.reducer;

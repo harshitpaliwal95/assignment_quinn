@@ -52,6 +52,7 @@ export const DropOver = () => {
             type={item.type}
             heigthSize={item.height}
             widthSize={item.width}
+            colorClass={item.colorClass}
           />
         ) : (
           <CanvasDndInput
@@ -63,6 +64,7 @@ export const DropOver = () => {
             type={item.type}
             heigthSize={item.height}
             widthSize={item.width}
+            colorClass={item.colorClass}
           />
         )
       )}
