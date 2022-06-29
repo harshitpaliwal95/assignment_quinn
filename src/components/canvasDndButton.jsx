@@ -2,13 +2,12 @@ import { useState } from "react";
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { editText, reSizeComp } from "../slice/globalSlice";
+import { ChangeColor } from "./changeColor";
 
 const style = {
   position: "absolute",
-  backgroundColor: "white",
   width: "13rem",
   height: "4rem",
-  color: "black",
   padding: "0.5rem 1rem",
   cursor: "move",
 };
@@ -20,6 +19,7 @@ export const CanvasDndButton = ({
   text,
   heigthSize,
   widthSize,
+  colorClass,
 }) => {
   const [, drag] = useDrag(
     () => ({
@@ -70,7 +70,7 @@ export const CanvasDndButton = ({
 
   return (
     <button
-      className="box btn dnd-btn"
+      className={`box btn dnd-btn ${colorClass}`}
       onDoubleClick={() => setInputEdit(true)}
       ref={drag}
       style={{ ...style, left, top, height, width }}
@@ -95,6 +95,7 @@ export const CanvasDndButton = ({
         className="bi bi-arrow-down-right btn-size btn-icon-inc"
         onClick={incSize}
       ></i>
+      <ChangeColor id={id} />
     </button>
   );
 };

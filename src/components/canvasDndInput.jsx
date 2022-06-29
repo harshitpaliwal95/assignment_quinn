@@ -31,7 +31,6 @@ export const CanvasDndInput = ({
     }),
     [id, left, top]
   );
-  console.log(heigthSize);
 
   const [buttonText, setButtonText] = useState(text);
   const dispatch = useDispatch();
