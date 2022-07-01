@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
-import { editText, reSizeComp } from "../slice/globalSlice";
+import { ReSize } from "../hook/reSize";
+import { editText } from "../slice/globalSlice";
 import { ChangeColor } from "./changeColor";
 
 const style = {
@@ -41,39 +42,14 @@ export const CanvasDndButton = ({
       setInputEdit(false);
     }
   };
-
-  const [height, setHeight] = useState(heigthSize);
-  const [width, setWidth] = useState(widthSize);
-  const getNumber = (item) => {
-    let number = item.replace("rem", "");
-    return Number(number);
-  };
-
-  const incSize = () => {
-    let numberHeight = getNumber(height);
-    let numberWidth = getNumber(width);
-    setHeight(() => `${numberHeight + 0.3}rem`);
-    setWidth(() => `${numberWidth + 0.8}rem`);
-    setTimeout(() => {
-      dispatch(reSizeComp({ id, height, width }));
-    }, 1000);
-  };
-  const decSize = () => {
-    let numberHeight = getNumber(height);
-    let numberWidth = getNumber(width);
-    setHeight(() => `${numberHeight - 0.3}rem`);
-    setWidth(() => `${numberWidth - 0.8}rem`);
-    setTimeout(() => {
-      dispatch(reSizeComp({ id, height, width }));
-    }, 1000);
-  };
+  const { incSize, decSize } = ReSize();
 
   return (
     <button
       className={`box btn dnd-btn ${colorClass}`}
       onDoubleClick={() => setInputEdit(true)}
       ref={drag}
-      style={{ ...style, left, top, height, width }}
+      style={{ ...style, left, top, height: heigthSize, width: widthSize }}
       data-testid="box"
     >
       {buttonText}
@@ -89,11 +65,11 @@ export const CanvasDndButton = ({
       )}
       <i
         className="bi bi-arrow-down-left btn-size btn-icon-dec"
-        onClick={decSize}
+        onClick={() => decSize(id, heigthSize, widthSize)}
       ></i>
       <i
         className="bi bi-arrow-down-right btn-size btn-icon-inc"
-        onClick={incSize}
+        onClick={() => incSize(id, heigthSize, widthSize)}
       ></i>
       <ChangeColor id={id} />
     </button>
