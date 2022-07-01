@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { changeColor } from "../slice/globalSlice";
 
-export const ChangeColor = ({ id }) => {
+export const ColorOptions = ({ id }) => {
   const colors = [
     "color-purple",
     "color-red",

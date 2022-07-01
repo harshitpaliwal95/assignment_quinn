@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  singleItem: [
+  canvasItem: [
     {
       id: 0,
       top: 20,
@@ -30,28 +30,28 @@ export const globalSlice = createSlice({
   initialState,
   reducers: {
     canvasState: (state, { payload }) => {
-      state.singleItem = payload;
+      state.canvasItem = payload;
     },
     editText: (state, { payload }) => {
-      const arr = state.singleItem.map((item) => {
+      const arr = state.canvasItem.map((item) => {
         const newObj = Object.assign({}, item);
         if (newObj.id === payload.id) {
           newObj["title"] = payload.text;
         }
         return newObj;
       });
-      state.singleItem = arr;
+      state.canvasItem = arr;
     },
-    updateComp: (state, { payload }) => {
-      const index = state.singleItem.findIndex(
+    updatePosition: (state, { payload }) => {
+      const index = state.canvasItem.findIndex(
         (item) => item.id === payload.id
       );
       if (index !== -1) {
-        state.singleItem[index].top = payload.top;
-        state.singleItem[index].left = payload.left;
+        state.canvasItem[index].top = payload.top;
+        state.canvasItem[index].left = payload.left;
       } else {
-        state.singleItem.push({
-          id: state.singleItem.length + 1,
+        state.canvasItem.push({
+          id: state.canvasItem.length + 1,
           top: payload.top,
           left: payload.left,
           type: payload.type,
@@ -62,23 +62,28 @@ export const globalSlice = createSlice({
       }
     },
     reSizeComp: (state, { payload }) => {
-      const index = state.singleItem.findIndex(
+      const index = state.canvasItem.findIndex(
         (item) => item.id === payload.id
       );
-      state.singleItem[index].height = payload.height;
-      state.singleItem[index].width = payload.width;
+      state.canvasItem[index].height = payload.height;
+      state.canvasItem[index].width = payload.width;
     },
     changeColor: (state, { payload }) => {
-      const index = state.singleItem.findIndex(
+      const index = state.canvasItem.findIndex(
         (item) => item.id === payload.id
       );
-      state.singleItem[index].colorClass = payload.colorClass;
+      state.canvasItem[index].colorClass = payload.colorClass;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { canvasState, editText, updateComp, reSizeComp, changeColor } =
-  globalSlice.actions;
+export const {
+  canvasState,
+  editText,
+  updatePosition,
+  reSizeComp,
+  changeColor,
+} = globalSlice.actions;
 
 export default globalSlice.reducer;

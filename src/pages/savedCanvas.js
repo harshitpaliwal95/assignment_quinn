@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { CanvasDndInput } from "../components/canvasDndInput";
 
 export const SavedCanvas = () => {
-  const { singleItem } = useSelector((state) => state.global);
-
-  console.log(singleItem);
+  const { canvasItem } = useSelector((state) => state.global);
 
   const navigate = useNavigate();
 
@@ -16,7 +14,7 @@ export const SavedCanvas = () => {
         <h1 onClick={() => navigate("/")}>Saved State -</h1>
       </div>
       <div className={`saved-state-canvas`}>
-        {singleItem.map((item) =>
+        {canvasItem.map((item) =>
           item.type === "button" ? (
             <CanvasDndButton
               key={item.id}

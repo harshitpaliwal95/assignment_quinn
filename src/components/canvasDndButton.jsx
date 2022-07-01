@@ -3,7 +3,7 @@ import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { ReSize } from "../hook/reSize";
 import { editText } from "../slice/globalSlice";
-import { ChangeColor } from "./changeColor";
+import { ColorOptions } from "./colorOptions";
 
 const style = {
   position: "absolute",
@@ -71,7 +71,7 @@ export const CanvasDndButton = ({
         className="bi bi-arrow-down-right btn-size btn-icon-inc"
         onClick={() => incSize(id, heigthSize, widthSize)}
       ></i>
-      <ChangeColor id={id} />
+      <ColorOptions id={id} />
     </button>
   );
 };

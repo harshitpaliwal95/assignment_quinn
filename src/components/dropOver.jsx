@@ -2,17 +2,17 @@ import { useCallback } from "react";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateComp } from "../slice/globalSlice";
+import { updatePosition } from "../slice/globalSlice";
 import { CanvasDndButton } from "./canvasDndButton";
 import { CanvasDndInput } from "./canvasDndInput";
 
 export const DropOver = () => {
-  const { singleItem } = useSelector((state) => state.global);
+  const { canvasItem } = useSelector((state) => state.global);
   const dispatch = useDispatch();
 
   const moveBox = useCallback(
     (id, left = 2, top = 0, type) => {
-      dispatch(updateComp({ id, top, left, type }));
+      dispatch(updatePosition({ id, top, left, type }));
     },
     [dispatch]
   );
@@ -41,7 +41,7 @@ export const DropOver = () => {
 
   return (
     <div ref={drop} className={`canvas`}>
-      {singleItem.map((item) =>
+      {canvasItem.map((item) =>
         item.type === "button" ? (
           <CanvasDndButton
             key={item.id}
